@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuyên Đề Giáo Dục (Education) - Ms Lê Hằng English</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8854C0;
+            --accent-color: #FDCB6E;
+            --success-color: #00D26A;
+            --danger-color: #FF4757;
+            --text-color: #2D3436;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10px;
+            overflow-x: hidden;
+            position: relative;
+            background: linear-gradient(-45deg, #8854C0, #E84393, #00C9A7, #FDCB6E);
+            background-size: 400% 400%;
+            animation: gradientBG 12s ease infinite;
+            color: var(--text-color);
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0;
+            opacity: 0.12;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M9 25c-2 0-3 1-3 3s1 3 3 3 3-1 3-3-1-3-3-3zm36 10c-2 0-3 1-3 3s1 3 3 3 3-1 3-3-1-3-3-3zM15 8l2 5h5l-4 3 2 5-5-3-5 3 2-5-4-3h5z'/%3E%3C/g%3E%3C/svg%3E");
+            animation: patternMove 25s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 300px 300px; }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            z-index: 1;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #fff;
+        }
+
+        header h5 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            background: #2D3436;
+            color: #FFF;
+            padding: 12px 20px;
+            border-radius: 14px;
+            margin: 30px 0 15px 0;
+            font-size: 1.25rem;
+            font-weight: 900;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .alert-box {
+            background: #FFEAA7;
+            border: 3px dashed #FF9F43;
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 700;
+            box-shadow: 0 6px 0 #FF9F43;
+            line-height: 1.6;
+        }
+
+        .alert-title {
+            color: #D63031;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            display: block;
+            font-weight: 900;
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border-radius: 22px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 0px rgba(0,0,0,0.06), 0 16px 20px rgba(0,0,0,0.04);
+            border: 3px solid #FFF;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            line-height: 1.6;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: #FFF;
+            border: 3px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 14px 20px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: left;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 5px 0 #E2E8F0;
+            transition: all 0.1s ease;
+        }
+
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 0 #CBD5E1;
+            background-color: #F8FAFC;
+        }
+
+        .option-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #CBD5E1;
+        }
+
+        .option-btn.correct {
+            background-color: #E8FDF0 !important;
+            border-color: var(--success-color) !important;
+            color: #0E6237 !important;
+            box-shadow: 0 5px 0 var(--success-color) !important;
+        }
+
+        .option-btn.wrong {
+            background-color: #FFEBEB !important;
+            border-color: var(--danger-color) !important;
+            color: #991B1B !important;
+            box-shadow: 0 5px 0 var(--danger-color) !important;
+        }
+
+        .explanation-box {
+            margin-top: 20px;
+            background: #F8F9FA;
+            border-left: 6px solid var(--primary-color);
+            border-radius: 8px;
+            padding: 18px;
+            display: none;
+            animation: slideDown 0.3s ease-out forwards;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .explanation-title {
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+
+        .exp-section {
+            margin-bottom: 8px;
+            font-size: 0.98rem;
+            line-height: 1.6;
+        }
+
+        .shake {
+            animation: shakeAnim 0.4s ease-in-out;
+        }
+
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-6px); }
+            40%, 80% { transform: translateX(6px); }
+        }
+
+        .submit-container {
+            text-align: center;
+            margin: 40px 0 70px 0;
+        }
+
+        .btn-submit {
+            background: #FF7675;
+            color: white;
+            border: none;
+            padding: 16px 50px;
+            font-size: 1.35rem;
+            font-weight: 900;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 7px 0 #E84393;
+            transition: all 0.1s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 9px 0 #E84393;
+        }
+
+        .btn-submit:active {
+            transform: translateY(5px);
+            box-shadow: 0 2px 0 #E84393;
+        }
+
+        .modal {
+            display: none;
+            fixed: fixed;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: #FFF;
+            border-radius: 24px;
+            padding: 35px 25px;
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            border: 4px solid var(--accent-color);
+            animation: scaleUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 1.7rem;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .modal-score {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--success-color);
+            margin: 10px 0;
+        }
+
+        .modal-comment {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #444;
+        }
+
+        .btn-close-modal {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #6C5CE7;
+        }
+
+        #confetti-canvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 99;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h5>Giáo viên tạo: Ms Lê Hằng English</h5>
+        </header>
+
+        <div class="alert-box">
+            <span class="alert-title">⚠️ LỜI NHẮC CỰC KỲ QUAN TRỌNG ⚠️</span>
+            Chỉ có đọc kỹ giải thích ngay sau mỗi câu, sau đó ghi lại từ vựng/cấu trúc mới vào vở để học thì mới thực sự giỏi lên.<br>
+            Làm cho xong mà không đọc giải thích hay đọc qua loa không ghi chép thì chỉ tốn thời gian vô ích!<br>
+            <span style="color: var(--primary-color); display:block; margin-top:5px; font-weight:900;">* Kéo tới đâu, làm tới đó! *</span>
+        </div>
+
+        <div id="quiz-wrapper"></div>
+
+        <div class="submit-container">
+            <button class="btn-submit" onclick="submitQuiz()">Nộp Bài Báo Điểm 🏆</button>
+        </div>
+    </div>
+
+    <div id="scoreModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-title">Kết Quả Thử Thách 🌟</div>
+            <div class="modal-score" id="modalScoreText">0/0</div>
+            <div class="modal-comment" id="modalCommentText">Đang chấm điểm...</div>
+            <button class="btn-close-modal" onclick="closeModal()">Làm lại bài thi 🔄</button>
+        </div>
+    </div>
+
+    <script>
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        let audioCtx = null;
+        function initAudio() { if (!audioCtx) audioCtx = new AudioCtx(); }
+        function playSound(type) {
+            try {
+                initAudio(); if (!audioCtx) return;
+                const now = audioCtx.currentTime;
+                if (type === 'correct') {
+                    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(523.25, now); osc.frequency.setValueAtTime(659.25, now + 0.08);
+                    gain.gain.setValueAtTime(0.25, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.35);
+                } else {
+                    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
+                    osc.type = 'triangle'; osc.frequency.setValueAtTime(150, now); osc.frequency.linearRampToValueAtTime(80, now + 0.3);
+                    gain.gain.setValueAtTime(0.25, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.35);
+                }
+            } catch (e) {}
+        }
+
+        const canvas = document.getElementById('confetti-canvas'); const ctx = canvas.getContext('2d');
+        let confettiPieces = []; let animationFrameId = null;
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resizeCanvas); resizeCanvas();
+        function createConfetti() {
+            confettiPieces = [];
+            for (let i = 0; i < 70; i++) {
+                confettiPieces.push({
+                    x: Math.random() * canvas.width, y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 5 + 4, d: Math.random() * canvas.height,
+                    color: `hsl(${Math.random() * 360}, 100%, 65%)`, tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.06 + 0.02, tiltAngle: 0
+                });
+            }
+            if(animationFrameId) cancelAnimationFrame(animationFrameId); animateConfetti();
+        }
+        function animateConfetti() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); let active = false;
+            confettiPieces.forEach((p) => {
+                p.tiltAngle += p.tiltAngleIncremental; p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2; p.x += Math.sin(p.tiltAngle); p.tilt = Math.sin(p.tiltAngle - p.r / 2) * 4;
+                if (p.y <= canvas.height) active = true;
+                ctx.beginPath(); ctx.lineWidth = p.r; ctx.strokeStyle = p.color;
+                ctx.moveTo(p.x + p.tilt + p.r / 2, p.y); ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2); ctx.stroke();
+            });
+            if (active) animationFrameId = requestAnimationFrame(animateConfetti);
+            else ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        const rawQuizData = [
+            // PART 1: SYNONYMS
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "Many educators criticized the policy as excessively <u>rigid</u> and pedagogically unsound.",
+                "options": ["inflexible", "innovative", "adaptable", "inclusive"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Nhiều nhà giáo dục đã chỉ trích chính sách này là quá cứng nhắc và không có căn cứ khoa học giáo dục.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>rigid</i> (adj): cứng nhắc, khắt khe, không linh hoạt.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>inflexible</i> (adj): cứng nhắc, không thể bẻ cong/thay đổi $\equiv$ rigid.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. innovative (đổi mới). C. adaptable (có thể thích nghi). D. inclusive (hòa nhập).</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The seminar addressed the <u>cognitive</u> development of adolescents.",
+                "options": ["emotional conflict", "intellectual growth", "physical endurance", "social behavior"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Hội thảo đã giải quyết vấn đề phát triển nhận thức của thanh thiếu niên.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>cognitive</i> (adj): liên quan đến nhận thức, trí tuệ, tư duy não bộ.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>intellectual growth</i> (sự phát triển trí tuệ) đồng nghĩa sát nhất với sự phát triển nhận thức.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. xung đột cảm xúc. C. sức bền thể chất. D. hành vi xã hội.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The university’s decision to <u>abolish</u> tuition fees for underprivileged students was met with widespread acclaim from the public.",
+                "options": ["eradicate", "terminate", "rescind", "disqualify"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Quyết định bãi bỏ học phí cho sinh viên nghèo của trường đại học đã nhận được sự hoan nghênh rộng rãi từ công chúng.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>abolish</i> (v): bãi bỏ, hủy bỏ (một đạo luật, quy định, hệ thống học phí). Trong ngữ cảnh chấm dứt một chế độ đóng phí, từ đồng nghĩa phù hợp nhất là terminate.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>terminate</i> (v): chấm dứt, làm cho kết thúc hiệu lực.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. eradicate (diệt trừ tận gốc dịch bệnh, đói nghèo). C. rescind (thu hồi/hủy bỏ luật - mang nặng tính lập pháp tối cao). D. disqualify (bác tư cách tham gia).</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The new curriculum aims to <u>foster</u> critical thinking rather than rote memorization among undergraduates.",
+                "options": ["evaluate", "restrict", "monitor", "encourage"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Chương trình giảng dạy mới nhằm mục đích thúc đẩy tư duy phản biện thay vì học vẹt trong sinh viên đại học.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>foster</i> (v): nuôi dưỡng, thúc đẩy, khuyến khích phát triển.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>encourage</i> (v): khuyến khích, cổ vũ thúc đẩy điều gì tiến lên.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. đánh giá. B. hạn chế. C. giám sát.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The university introduced a merit-based scholarship scheme to reward academic <u>excellence</u>.",
+                "options": ["achievement", "mediocrity", "compliance", "attendance"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Trường đại học đã giới thiệu một chương trình học bổng dựa trên thành tích để phần thưởng cho sự xuất sắc trong học tập.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>excellence</i> (n): sự xuất sắc, thành tựu tột bậc.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>achievement</i> (n): thành tích, thành tựu lớn đạt được, tương đương sắc thái khen thưởng.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. mediocrity (sự tầm thường, trung bình). C. compliance (sự tuân thủ). D. attendance (sự tham gia chuyên cần).</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The lecturer’s remarks were <u>ambiguous</u>, leaving students uncertain about assessment criteria.",
+                "options": ["detailed", "unclear", "explicit", "transparent"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Những nhận xét của giảng viên rất mơ hồ, khiến sinh viên không chắc chắn về tiêu chí đánh giá.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>ambiguous</i> (adj): mơ hồ, đa nghĩa, không rõ ràng.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>unclear</i> (adj): không rõ ràng, mờ mịt.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. chi tiết. C. rõ ràng dứt khoát. D. minh bạch.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The professor’s discourse was intellectually stimulating yet <u>accessible</u> to first-year students.",
+                "options": ["discouraging", "redundant", "superficial", "engaging"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Bài luận thuyết của giáo sư kích thích trí tuệ nhưng vẫn dễ tiếp cận đối với sinh viên năm nhất. (Lưu ý: trong ngữ cảnh bài giảng lôi cuốn, dễ hiểu, 'accessible' tương đồng sắc thái với thu hút người nghe).</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>accessible</i> (adj): dễ tiếp cận, dễ hiểu, có sức lôi cuốn người đọc/người nghe.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>engaging</i> (adj): hấp dẫn, lôi cuốn, dễ đi vào lòng người học.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. làm nản lòng. B. dư thừa. C. hời hợt, nông cạn.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The scholarship aims to promote educational <u>equity</u> among students from disadvantaged backgrounds.",
+                "options": ["privilege", "competition", "fairness", "hierarchy"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Học bổng nhằm mục đích thúc đẩy sự công bằng trong giáo dục giữa các học sinh có hoàn cảnh khó khăn.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>equity</i> (n): sự công bằng, tính bình đẳng phân phối quyền lợi.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>fairness</i> (n): sự công bằng, không thiên vị.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. đặc quyền. B. sự cạnh tranh. D. hệ thống thứ bậc hệ thống.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The workshop sought to equip students with <u>transferable</u> skills.",
+                "options": ["relevant", "outdated", "applicable", "theoretical"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Hội thảo tìm cách trang bị cho sinh viên những kỹ năng có thể chuyển đổi được (áp dụng được vào nhiều lĩnh vực nghề nghiệp khác nhau).</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>transferable</i> (adj): có thể chuyển đổi, có tính ứng dụng thực tế linh hoạt trong nhiều môi trường.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>applicable</i> (adj): có thể áp dụng được, có tính thực tiễn.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. liên quan (chung chung). B. lỗi thời. D. mang tính lý thuyết suông.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The principal <u>reprimanded</u> the students for breaching examination protocols.",
+                "options": ["praised", "scolded", "excused", "assisted"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Hiệu trưởng đã khiển trách các học sinh vì vi phạm quy chế thi cử.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>reprimand</i> (v): khiển trách, quở trách trang trọng.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>scolded</i> (v): mắng mỏ, khiển trách ai.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. khen ngợi. C. bào chữa, tha thứ. D. hỗ trợ.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The accreditation process ensures institutional <u>credibility</u> and academic accountability.",
+                "options": ["reliability", "popularity", "profitability", "creativity"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Quy trình kiểm định chất lượng đảm bảo uy tín của tổ chức và trách nhiệm giải trình học thuật.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>credibility</i> (n): sự uy tín, độ đáng tin cậy.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>reliability</i> (n): độ tin cậy, tính xác thực cao.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. sự phổ biến. C. tính sinh lời. D. óc sáng tạo.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The syllabus was revised to <u>align</u> with international accreditation standards.",
+                "options": ["conform", "contradict", "distort", "neglect"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Giáo trình đã được sửa đổi để phù hợp/đồng bộ với các tiêu chuẩn kiểm định quốc tế.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>align with</i> (v): đứng hàng, căn chỉnh cho phù hợp/tuân thủ theo tiêu chuẩn định sẵn.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>conform</i> (v): tuân thủ, phù hợp với tiêu chuẩn (thường đi với giới từ to/with).</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. mâu thuẫn. C. bóp méo xuyên tạc. D. bỏ bê, thờ ơ.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The curriculum reform was implemented <u>incrementally</u> over a five-year period.",
+                "options": ["simultaneously", "randomly", "abruptly", "gradually"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Cải cách chương trình giảng dạy đã được thực hiện từng bước một cách dần dần trong khoảng thời gian năm năm.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>incrementally</i> (adv): tăng dần theo từng bước, tích lũy dần dần nhỏ lẻ.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>gradually</i> (adv): dần dần, từng bước một, đồng nghĩa tối ưu.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. đồng thời. B. ngẫu nhiên. C. đột ngột.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "Academic <u>integrity</u> is fundamental to maintaining scholarly credibility.",
+                "options": ["authority", "diversity", "honesty", "flexibility"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Tính chính trực trong học thuật là nền tảng để duy trì uy tín nghiên cứu khoa học.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>integrity</i> (n): sự chính trực, tính liêm chính, trung thực tuyệt đối.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>honesty</i> (n): sự trung thực, thật thà $\equiv$ integrity.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. quyền lực chính thống. B. sự đa dạng. D. tính linh hoạt.</div>"
+            },
+            {
+                "section": "Synonyms (Từ Đồng Nghĩa)",
+                "question": "The curriculum aims to <u>instill</u> a sense of civic responsibility and critical thinking in students from a very young age.",
+                "options": ["extract", "inculcate", "diffuse", "enlighten"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Chương trình học nhằm thấm nhuần/làm sâu sắc ý thức trách nhiệm công dân và tư duy phản biện cho học sinh từ khi còn rất nhỏ.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>instill</i> (v): làm cho thấm nhuần, khắc sâu tư tưởng/đạo đức vào tâm trí ai.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>inculcate</i> (v): ghi tâm khảm, khắc sâu tâm trí bằng cách lặp lại thường xuyên tư tưởng, đồng nghĩa học thuật hoàn hảo.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. trích xuất, rút ra. C. khuếch tán. D. khai sáng, giác ngộ.</div>"
+            },
+
+            // PART 2: ANTONYMS
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The university promotes academic <u>transparency</u> in all assessment procedures.",
+                "options": ["clarity", "secrecy", "fairness", "consistency"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Trường đại học thúc đẩy sự minh bạch học thuật trong tất cả các quy trình đánh giá kiểm tra.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>transparency</i> (n): tính minh bạch, rõ ràng, công khai $\rightarrow$ Cần tìm từ trái nghĩa (sự bí mật, che giấu).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>secrecy</i> (n): sự kín đáo, giữ bí mật, mờ ám che giấu, trái nghĩa trực tiếp.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. sự rõ ràng (đồng nghĩa). C. sự công bằng. D. tính nhất quán.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "After failing the entrance exam twice, his motivation for pursuing a medical career began to <u>wane</u> significantly.",
+                "options": ["ebb", "proliferate", "intensify", "dwindle"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Sau khi trượt kỳ thi tuyển sinh hai lần, động lực theo đuổi sự nghiệp y khoa của anh bắt đầu suy giảm đáng kể.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>wane</i> (v): suy yếu dần, giảm sút, tàn tạ đi $\rightarrow$ Cần tìm từ trái nghĩa (tăng cường, mạnh lên).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>intensify</i> (v): tăng cường, gia tăng mạnh mẽ về mức độ lực lượng, trái nghĩa hoàn toàn.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. rút bớt, suy yếu (đồng nghĩa). B. proliferate (bùng nổ số lượng nhân lên nhanh chóng). D. teo tóp co lại, sụt giảm (đồng nghĩa).</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The lecturer adopted a <u>pragmatic</u> approach to curriculum design.",
+                "options": ["practical", "theoretical", "realistic", "applicable"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Giảng viên đã áp dụng một cách tiếp cận thực tế/thực dụng vào thiết kế chương trình học.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>pragmatic</i> (adj): mang tính thực tiễn, thực tế, đề cao tính ứng dụng hiệu quả $\rightarrow$ Cần từ trái nghĩa (mang tính lý thuyết suông).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>theoretical</i> (adj): thuộc về lý thuyết, hàn lâm lý luận suông, trái nghĩa trực tiếp.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. thực tế (đồng nghĩa). C. thực tế thực hiện (đồng nghĩa). D. có thể áp dụng (đồng nghĩa).</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The headmaster was known for his <u>permissive</u> attitude toward minor infractions, which some teachers argued undermined school discipline.",
+                "options": ["lenient", "indulgent", "diffuse", "stringent"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Hiệu trưởng được biết đến với thái độ dễ dãi trước các vi phạm nhỏ, điều mà một số giáo viên cho rằng đã làm suy yếu kỷ luật nhà trường.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>permissive</i> (adj): dễ dãi, tùy tiện, buông thả, cho phép tự do quá mức $\rightarrow$ Cần từ trái nghĩa (nghiêm khắc, chặt chẽ).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C (nhầm lẫn: Chọn D). <i>stringent</i> (adj): nghiêm khắc, nghiêm ngặt, chặt chẽ kỷ luật, trái nghĩa trực tiếp với sự dung túng dễ dãi.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. khoan dung xuề xòa (đồng nghĩa). B. nuông chiều (đồng nghĩa). C. khuếch tán lan man.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The reform enhanced institutional <u>autonomy</u> significantly.",
+                "options": ["independence", "accountability", "dependence", "flexibility"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Cuộc cải cách đã tăng cường quyền tự chủ của tổ chức giáo dục một cách đáng kể.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>autonomy</i> (n): quyền tự trị, tính độc lập tự quyết $\rightarrow$ Cần tìm từ trái nghĩa (sự lệ thuộc, phụ thuộc).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>dependence</i> (n): sự phụ thuộc, lệ thuộc vào thế lực khác.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. sự độc lập (đồng nghĩa). B. trách nhiệm giải trình. D. tính linh hoạt.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The committee praised her <u>exemplary</u> academic conduct.",
+                "options": ["outstanding", "commendable", "ethical", "inappropriate"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Ủy ban đã khen ngợi tư cách đạo đức học thuật gương mẫu/chuẩn mực mẫu mực của cô ấy.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>exemplary</i> (adj): gương mẫu, mẫu mực, xứng đáng làm gương sáng noi theo $\rightarrow$ Cần tìm từ trái nghĩa (không chuẩn mực, không phù hợp).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>inappropriate</i> (adj): không phù hợp, sai lệch quy chuẩn ứng xử đạo đức.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. xuất sắc (đồng nghĩa). B. đáng khen ngợi (đồng nghĩa). C. thuộc đạo đức chính trực.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The research findings were deemed <u>conclusive</u> after peer evaluation.",
+                "options": ["inconclusive", "decisive", "definitive", "validated"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Các kết quả nghiên cứu được coi là mang tính thuyết phục kết luận/cuối cùng không thể chối cãi sau khi có đánh giá ngang hàng chuyên môn.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>conclusive</i> (adj): có tính kết luận, chắc chắn, mang tính thuyết phục tuyệt đối $\rightarrow$ Cần tìm từ trái nghĩa (chưa rõ ràng, không dứt khoát).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>inconclusive</i> (adj): không đem lại kết luận chắc chắn, còn mơ hồ lửng lơ, tiền tố 'in-' tạo từ trái nghĩa trực tiếp.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. mang tính quyết định (đồng nghĩa). C. mang tính định hình cuối cùng (đồng nghĩa). D. đã được xác thực giá trị hiệu lực.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The institution values intellectual <u>rigor</u> in all scholarly activities.",
+                "options": ["strictness", "precision", "negligence", "discipline"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Học viện coi trọng sự nghiêm túc/khắt khe về mặt trí tuệ trong tất cả các hoạt động học thuật nghiên cứu.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>rigor</i> (n): tính nghiêm ngặt, khắt khe, chặt chẽ logic tuyệt đối $\rightarrow$ Cần tìm từ trái nghĩa (sự cẩu thả, bỏ bê bê trễ).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>negligence</i> (n): sự cẩu thả, lơ là, chểnh mảng bỏ bê, trái nghĩa sâu sắc về tư duy khoa học.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. sự nghiêm ngặt (đồng nghĩa). B. sự chính xác chuẩn mục (đồng nghĩa). D. tính kỷ luật cao.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The professor was criticized for his <u>pedantic</u> approach, focusing excessively on minor rules rather than the core concepts.",
+                "options": ["erudite", "perfunctory", "methodical", "comprehensive"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Giáo sư đã bị chỉ trích vì cách tiếp cận tinh vi mọt sách/sách vở chi li, tập trung quá mức vào các quy tắc nhỏ nhặt thay vì các khái niệm cốt lõi.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>pedantic</i> (adj): thông thái rởm, mọt sách, quá câu nệ tiểu tiết luật lệ hàn lâm cứng nhắc $\rightarrow$ Cần tìm từ trái nghĩa (làm việc qua loa hời hợt đại khái không câu nệ).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>perfunctory</i> (adj): chiếu lệ, qua loa, hời hợt đại khái cho xong chuyện, đối lập phong thái câu nệ từng li từng tí của mọt sách.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. uyên bác sâu rộng. C. có phương pháp khoa học. D. toàn diện sâu sắc.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The curriculum emphasizes <u>collaborative</u> learning environments.",
+                "options": ["isolated", "cooperative", "interactive", "participatory"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Chương trình học nhấn mạnh vào môi trường học tập mang tính hợp tác cùng nhau nhóm đội.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>collaborative</i> (adj): có tính hợp tác phối hợp đồng đội $\rightarrow$ Cần tìm từ trái nghĩa (đơn độc, biệt lập).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>isolated</i> (adj): bị cô lập, biệt lập, đơn lẻ độc hành đơn độc, đối lập với học nhóm làm việc chung.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. hợp tác (đồng nghĩa). C. tương tác lẫn nhau (đồng nghĩa). D. có tính tham gia tích cực.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The dean addressed the issue with remarkable <u>impartiality</u>.",
+                "options": ["neutrality", "bias", "fairness", "objectivity"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Trưởng khoa đã giải quyết vấn đề với sự vô tư khách quan/không thiên vị đáng kinh ngạc.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>impartiality</i> (n): sự vô tư, không thiên vị, tính khách quan công bằng $\rightarrow$ Cần tìm từ trái nghĩa (sự định kiến, thiên vị bênh vực bè phái).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>bias</i> (n): sự thiên vị, thành kiến định kiến bóp méo, trái nghĩa trực tiếp.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. tính trung lập (đồng nghĩa). C. sự công bằng (đồng nghĩa). D. tính khách quan (đồng nghĩa).</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The training session improved students’ analytical <u>proficiency</u>.",
+                "options": ["competence", "mastery", "inadequacy", "expertise"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Buổi đào tạo tập huấn đã cải thiện năng lực thành thạo/sự điêu luyện phân tích của học sinh.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>proficiency</i> (n): sự thành thạo, năng lực điêu luyện, tài giỏi xuất sắc $\rightarrow$ Cần tìm từ trái nghĩa (sự yếu kém, thiếu hụt năng lực không đáp ứng nổi).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>inadequacy</i> (n): sự thiếu sót, yếu kém năng lực, không đủ trình độ/năng lực, trái nghĩa trực tiếp.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. năng lực chuẩn mực (đồng nghĩa). B. sự bậc thầy làm chủ (đồng nghĩa). D. sự am tường chuyên gia (đồng nghĩa).</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The reform was intended to <u>streamline</u> administrative procedures.",
+                "options": ["simplify", "expedite", "coordinate", "complicate"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Cuộc cải cách được dự kiến nhằm tinh giản/tối ưu hóa đơn giản hóa các thủ tục hành chính.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>streamline</i> (v): cải tiến, tinh giản sắp xếp lại cho gọn nhẹ dễ dàng hoạt động $\rightarrow$ Cần từ trái nghĩa (làm phức tạp thêm rắc rối hóa).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>complicate</i> (v): làm phức tạp, rắc rối hóa quy trình, gây cản trở rườm rà.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. làm đơn giản (đồng nghĩa). B. xúc tiến đẩy nhanh tiến độ (đồng nghĩa). C. điều phối phối hợp hoạt động.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "Despite his intelligence, the student was devastated to learn that he had <u>ploughed</u> the most important exam of the semester.",
+                "options": ["fail", "flunk", "ace", "labor"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Bất chấp sự thông minh của mình, cậu học sinh đã vô cùng suy sụp khi biết tin mình đã trượt kỳ thi quan trọng nhất của học kỳ.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>plough</i> (v-slang/idiom học thuật Anh-Anh): thi trượt, làm bài thi tệ hại $\rightarrow$ Cần tìm từ trái nghĩa (đạt điểm tuyệt đối, vượt qua xuất sắc).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>ace</i> (v-slang học đường): đạt điểm A, đạt điểm tuyệt đối xuất sắc vượt qua kỳ thi gọn gàng.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. trượt (đồng nghĩa). B. rớt chổng vó (đồng nghĩa). D. lao động cày cuốc vất vả.</div>"
+            },
+            {
+                "section": "Antonyms (Từ Trái Nghĩa)",
+                "question": "The faculty encouraged <u>constructive</u> feedback during seminars.",
+                "options": ["helpful", "destructive", "supportive", "valuable"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu gốc:</strong> Khoa đã khuyến khích các phản hồi mang tính xây dựng đóng góp tích cực trong các buổi thảo luận chuyên đề.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ gạch chân:</strong> <i>constructive</i> (adj): mang tính xây dựng, tiến bộ giúp đỡ tốt lên $\rightarrow$ Cần từ trái nghĩa (mang tính triệt hạ phá hoại tàn phá).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>destructive</i> (adj): mang tính tàn phá, hủy hoại tiêu cực triệt hạ, tạo ra cặp từ phản nghĩa kinh điển (constructive vs destructive).</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. có ích giúp đỡ. C. mang tính hỗ trợ ủng hộ. D. có giá trị cao.</div>"
+            },
+
+            // PART 3: MULTIPLE CHOICE
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Many students struggle to ______ critical thinking skills despite high examination scores.",
+                "options": ["cultivate", "calculate", "imitate", "accelerate"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Nhiều học sinh chật vật để trau dồi/vun đắp kỹ năng tư duy phản biện bất chấp điểm số thi cử cao.</div><div class='exp-section'><strong>Bước 2 - Phân tích manh mối từ đi kèm:</strong> Đi với tân ngữ là một năng lực phẩm chất tâm lý, tư duy 'critical thinking skills', ta dùng động từ mang ý nghĩa vun bồi, gieo trồng trau dồi lâu dài.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>cultivate</i> (v): trau dồi, tu dưỡng, gieo trồng học hỏi bản thân.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. tính toán con số. C. bắt chước mô phỏng. D. tăng tốc tiến độ.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The scholarship aims to ______ financial burdens for disadvantaged undergraduates.",
+                "options": ["alleviate", "complicate", "elevate", "calculate"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Học bổng nhằm mục đích làm giảm bớt gánh nặng tài chính cho các sinh viên đại học có hoàn cảnh khó khăn.</div><div class='exp-section'><strong>Bước 2 - Phân tích manh mối từ đi kèm:</strong> Đi kèm với danh từ gánh nặng, khó khăn áp lực 'financial burdens', ta dùng động từ giảm bớt gánh nặng tâm lý xã hội.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>alleviate</i> (v): làm giảm nhẹ bớt (nỗi đau gánh nặng như đã phân tích ở bài đô thị hóa).</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. làm phức tạp rắc rối thêm. C. nâng cao vị trí, nâng cấp. D. tính toán.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Access to quality education remains a pressing ______ in many developing nations.",
+                "options": ["benefit", "luxury", "privilege", "concern"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Tiếp cận giáo dục chất lượng cao vẫn là một mối bận tâm/vấn nạn cấp bách ở nhiều quốc gia đang phát triển.</div><div class='exp-section'><strong>Bước 2 - Phân tích tính từ đi kèm:</strong> Tính từ 'pressing' nghĩa là cấp bách, nóng bỏng, nhức nhối, tạo thành colocation chuẩn chỉnh nhất với danh từ chỉ vấn đề, mối lo ngại.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>concern</i> (n): mối lo ngại, vấn đề trăn trở nhức nhối. Cụm <b>a pressing concern</b> là mối quan tâm cấp bách quốc gia.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. lợi ích. B. thứ xa xỉ. C. đặc quyền đặc lợi.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The mentor provided invaluable ______ that shaped her academic trajectory.",
+                "options": ["guidance", "resistance", "ignorance", "confusion"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Người cố vấn đã cung cấp sự chỉ dẫn vô giá giúp định hình quỹ đạo con đường học thuật của cô ấy.</div><div class='exp-section'><strong>Bước 2 - Phân tích vai trò chủ thể:</strong> Người cố vấn học tập 'mentor' có chức năng cốt lõi là đưa ra lời khuyên, định hướng, sự hướng dẫn tận tình cho học trò.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>guidance</i> (n): sự hướng dẫn, chỉ dẫn học tập định hướng đường lối.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. sự kháng cự. C. sự ngu dốt thiếu hiểu biết. D. sự hoang mang bối rối.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The committee decided to ______ the proposal after careful evaluation.",
+                "options": ["distort", "prohibits", "endorse", "neglect"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Ủy ban đã quyết định tán thành/chính thức thông qua đề xuất sau khi đánh giá cẩn thận.</div><div class='exp-section'><strong>Bước 2 - Phân tích logic hành động:</strong> Sau khi cân nhắc đánh giá rất kỹ càng chuyên nghiệp 'after careful evaluation', hội đồng đưa ra quyết định tích cực chính thức ủng hộ dự án.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>endorse</i> (v): chính thức tán thành, ủng hộ công khai, phê duyệt thông qua một tài liệu/đề xuất.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. bóp méo thông tin. B. cấm đoán (viết sai chia động từ số nhiều). D. bỏ bê, thờ ơ lơ là.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "He spent the entire weekend trying to ______ the complex philosophical theories presented in the seminar.",
+                "options": ["fathom", "measure", "anchor", "scale"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Anh ấy đã dành cả cuối tuần để cố gắng thấu hiểu/hiểu thấu đáo các lý thuyết triết học phức tạp được trình bày trong buổi hội thảo.</div><div class='exp-section'><strong>Bước 2 - Phân tích đối tượng tân ngữ:</strong> Đối với lý thuyết triết học cao siêu trừu tượng 'complex philosophical theories', việc hiểu sâu sắc, thấu suốt bản chất bản lý luận đòi hỏi một động từ đặc thù.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>fathom</i> (v): hiểu thấu, đào sâu tìm hiểu ngọn ngành bản chất một bí ẩn/lý thuyết khó nhằn.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. đo đạc chiều dài kích cỡ vật lý. C. thả neo cố định. D. leo vảy/đong đếm tỷ lệ.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Teachers must remain ______ to constructive criticism from students and colleagues.",
+                "options": ["resistant", "indifferent", "receptive", "immune"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Giáo viên phải luôn cởi mở/đón nhận những ý kiến đóng góp mang tính xây dựng từ học sinh và đồng nghiệp.</div><div class='exp-section'><strong>Bước 2 - Phân tích cấu trúc tính từ:</strong> Cấu trúc <b>remain receptive to sth</b> nghĩa là luôn có thái độ lắng nghe, sẵn sàng tiếp thu, đón nhận ý kiến đóng góp tiến bộ của người khác.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>receptive</i> (adj): biết lắng nghe, dễ tiếp thu, sẵn sàng đón nhận tư tưởng mới.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. phản kháng chống cự. B. thờ ơ lãnh đạm. D. miễn nhiễm dịch bệnh.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The university strives to stay ahead of the ______ in global academic rankings.",
+                "options": ["road", "curve", "surface", "margin"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Trường đại học nỗ lực để dẫn đầu xu hướng/luôn đi trước một bước trong bảng xếp hạng học thuật toàn cầu.</div><div class='exp-section'><strong>Bước 2 - Phân tích idiom cố định:</strong> Thành ngữ <b>stay ahead of the curve</b> là một cụm từ cố định mang ý nghĩa dẫn đầu xu thế, đi trước thời đại, đổi mới tiên phong trước khi đối thủ kịp phản ứng.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>curve</i> để hoàn thiện idiom 'stay ahead of the curve'.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> Các danh từ khác ráp vào không tạo nên cụm từ có ý nghĩa thành ngữ này.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Many students struggle to strike a healthy ______ between study and social life.",
+                "options": ["consistence", "lifestyle", "motivation", "balance"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Nhiều sinh viên chật vật để thiết lập một sự cân bằng lành mạnh giữa việc học và cuộc sống xã hội cá nhân.</div><div class='exp-section'><strong>Bước 2 - Phân tích colocation đi kèm:</strong> Cấu trúc động từ đi kèm cụm từ cân bằng: <b>strike a balance between A and B</b> nghĩa là cân bằng hài hòa giữa hai bên đối lập, không để bên nào lấn át.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>balance</i> (n): sự cân bằng, trạng thái cân đối hài hòa.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. tính nhất quán thống nhất. B. lối sống phong cách sống. C. động lực thúc đẩy.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The student’s argument was _________ by extensive data and citations from leading experts in the field.",
+                "options": ["roofed", "floored", "buttressed", "walled"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Lập luận của sinh viên đã được củng cố/vững chắc thêm nhờ dữ liệu sâu rộng và các trích dẫn từ các chuyên gia hàng đầu trong lĩnh vực này.</div><div class='exp-section'><strong>Bước 2 - Phân tích văn cảnh lập luận:</strong> Ý nghĩa được chống đỡ, củng cố lập luận vững như kiềng ba chân nhờ bằng chứng thuyết phục khoa học 'extensive data and citations'.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>buttress</i> (v-nghĩa gốc kiến trúc: xây cột trụ chống đỡ tường thành; nghĩa bóng học thuật): củng cố vững chắc, làm chỗ dựa kiên cố cho lập luận lý thuyết chống lại sự phản bác.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. làm mái nhà che phủ. B. đánh đo ván, làm đổ sàn. D. xây tường vây quanh.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Many educators argue that the ______ learning method stifles a student’s capacity for critical thinking and creativity.",
+                "options": ["traditional", "rote", "blended", "distance"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Nhiều nhà giáo dục lập luận rằng phương pháp học vẹt làm bóp nghẹt khả năng tư duy phản biện và sáng tạo của học sinh.</div><div class='exp-section'><strong>Bước 2 - Phân tích tác hại đi kèm:</strong> Tác hại 'stifles capacity for critical thinking' (bóp nghẹt tư duy phản biện) là hậu quả tiêu cực nhãn tiền của lối học vẹt, nhồi nhét máy móc ghi nhớ từ ngữ không hiểu bản chất.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>rote</i> (n/adj). Thuật ngữ <b>rote learning</b> / <b>rote memorization</b> nghĩa là học vẹt, học thuộc lòng máy móc.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. phương pháp truyền thống. C. học tập kết hợp tích hợp công nghệ. D. học từ xa trực tuyến.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The student’s plagiarism case sparked a heated ______ within the faculty committee.",
+                "options": ["harmony", "controversy", "silence"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Vụ việc đạo văn của sinh viên đã gây ra một cuộc tranh luận nảy lửa/sự tranh cãi gay gắt trong ủy ban khoa. (Lưu ý: Đề thiếu phương án D, nhưng đáp án B đã tạo cụm từ cố định hoàn chỉnh).</div><div class='exp-section'><strong>Bước 2 - Phân tích colocation tính từ đi kèm:</strong> Tính từ 'heated' nghĩa là nảy lửa, gay gắt kịch liệt, tạo thành một colocation rất phổ biến với danh từ chỉ cuộc tranh cãi luận chiến xã hội.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>controversy</i> (n): sự tranh cãi gay gắt trên diện rộng công luận. Cụm từ <b>spark a heated controversy</b> có nghĩa là châm ngòi cho tranh cãi nảy lửa.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. sự hòa hợp êm ấm. C. sự im lặng tĩnh mịch.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The faculty board emphasized that ______ is the cornerstone of all scholarly research and student conduct.",
+                "options": ["scholarly deceit", "vocational education", "institutional reliance", "academic integrity"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Ban giám hiệu khoa nhấn mạnh rằng liêm chính học thuật là nền tảng cốt lõi của mọi nghiên cứu khoa học và hành vi của sinh viên.</div><div class='exp-section'><strong>Bước 2 - Phân tích từ khóa nền tảng:</strong> Thuật ngữ mô tả hòn đá tảng quyết định sự sống còn của môi trường giáo dục cao cấp, chống đạo văn, gian lận thi cử ('cornerstone of scholarly research').</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>academic integrity</i> (n): tính liêm chính học thuật, trung thực khoa học (đã bắt gặp ở câu 14 đồng nghĩa).</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. sự lừa dối học thuật (sai giá trị đạo đức). B. giáo dục nghề nghiệp. C. sự phụ thuộc tổ chức.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Effective teachers constantly ______ their teaching strategies to suit diverse learners.",
+                "options": ["adopt", "adapt", "adjust to", "convert"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Những giáo viên hiệu quả liên tục điều chỉnh/thay đổi các chiến lược giảng dạy của mình sao cho phù hợp với những người học đa dạng khác nhau.</div><div class='exp-section'><strong>Bước 2 - Phân tích cấu trúc ngữ pháp động từ:</strong> Vị trí trống đứng trước một tân ngữ trực tiếp làm nhiệm vụ tác động ngoại động từ 'their teaching strategies'. Cụm mục đích phía sau chỉ ra hành động tinh chỉnh, sửa đổi cho khớp hoàn hảo: <b>adapt sth to suit...</b> (sửa đổi cái gì để khớp với cái gì).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>adapt</i> (v): sửa đổi, điều chỉnh cấu trúc tính chất thiết kế cho tương thích phù hợp môi trường hoàn cảnh mới.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. adopt (nhận nuôi/áp dụng một phương pháp nguyên xi - không mang ý tinh chỉnh sửa đổi tinh tế linh hoạt). C. adjust to là nội động từ (phải có to mới đi với danh từ, không đứng liền trước tân ngữ trực tiếp thế này). D. biến đổi cấu trúc cốt lõi định dạng vật lý.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Many graduates find themselves at a ______ when entering competitive job markets.",
+                "options": ["break", "gap", "loss", "fault"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Nhiều sinh viên mới tốt nghiệp thấy mình rơi vào tình trạng lúng túng/bối rối mất phương hướng khi bước vào thị trường việc làm đầy cạnh tranh.</div><div class='exp-section'><strong>Bước 2 - Phân tích idiom cố định:</strong> Thành ngữ <b>be at a loss</b> nghĩa là lúng túng, bối rối, không biết phải làm gì hay nói gì trước một tình huống bất ngờ khó khăn.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>loss</i> để hoàn chỉnh cụm thành ngữ tâm lý 'find themselves at a loss'.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> Ráp các từ khác vào cấu trúc giới từ này không sinh ra tầng nghĩa lúng túng mất phương hướng học đường.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "He passed the rigorous bar exam with ______, earning the highest score in the history of the law faculty.",
+                "options": ["flying colors", "the upper hand", "a clean slate", "broad strokes"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Anh ấy đã vượt qua kỳ thi sát hạch luật sư nghiêm ngặt với điểm số xuất sắc rực rỡ, đạt số điểm cao nhất trong lịch sử của khoa luật.</div><div class='exp-section'><strong>Bước 2 - Phân tích ngữ cảnh thành tích:</strong> Việc đạt thủ khoa điểm cao kỷ lục lịch sử 'earning the highest score in history' ứng nghiệm hoàn toàn với thành ngữ vượt qua bài thi với kết quả rực rỡ vang dội.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <b>with flying colors</b> (idiom): cực kỳ thành công, đạt điểm số cao rực rỡ trong các kỳ thi kiểm tra học thuật.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. thế thượng phong quyền lực. C. làm lại từ đầu xóa bỏ quá khứ xấu. D. nét phác thảo tổng quan sơ bộ.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "To succeed in the competitive legal field, students must ______ themselves to their studies and gain practical internship experience.",
+                "options": ["devote", "apply", "commit", "exert"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Để thành công trong lĩnh vực pháp lý đầy cạnh tranh, sinh viên phải tập trung cao độ/dốc hết tâm sức vào việc học và tích lũy kinh nghiệm thực tập thực tế.</div><div class='exp-section'><strong>Bước 2 - Phân tích colocation đi kèm đại từ phản thân:</strong> Cấu trúc đi kèm giới từ 'to': <b>apply oneself to sth/doing sth</b> nghĩa là làm việc chăm chỉ, dốc toàn bộ tâm trí lực lực tập trung cao độ vào việc gì.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>apply</i> tạo thành cấu trúc 'apply themselves to their studies'.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. devote sth/oneself to sth (mang nghĩa cống hiến hy sinh, nặng nề tâm linh xã hội hơn việc cày cuốc học tập của apply). C. commit oneself to doing sth (hứa hẹn ràng buộc trách nhiệm pháp lý thực hiện nghĩa vụ). D. exert oneself (nỗ lực bản thân - không đi với cấu trúc phản thân có tân ngữ to bồi đắp sau như thế này).</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The professor’s ______ lectures often drifted away from the main topic, leaving students confused about the core curriculum.",
+                "options": ["discursive", "succinct", "pedantic", "erudite"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Các bài giảng lan man/rời rạc của giáo sư thường đi chệch khỏi chủ đề chính, khiến sinh viên bối rối về chương trình học lõi.</div><div class='exp-section'><strong>Bước 2 - Phân tích mệnh đề mô tả:</strong> Manh mối cụm hành động 'drifted away from the main topic' (bị trôi dạt, đi lệch hướng xa rời đề tài cốt lõi ban đầu) vạch trần tính chất lan man dài dòng không tập trung của bài phát biểu.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>discursive</i> (adj): lan man, rời rạc, không tập trung vào chủ đề chính yếu, hay nói chuyện ngoài lề.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. súc tích ngắn gọn cô đọng. C. mọt sách chi li tiểu tiết (như câu 9 từ trái nghĩa). D. uyên bác, thông thái.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The lecturer’s remarks were taken out of ______ and misunderstood widely.",
+                "options": ["order", "context", "place", "system"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Những lời nhận xét của giảng viên đã bị tách ra khỏi bối cảnh/ngữ cảnh dẫn đến bị hiểu lầm một cách rộng rãi khắp nơi.</div><div class='exp-section'><strong>Bước 2 - Phân tích colocation cố định:</strong> Thành ngữ chỉ việc cắt xén câu chữ ra khỏi văn cảnh gốc để làm sai lệch bản chất tuyên bố: <b>take sth out of context</b> (bốc câu chữ ra khỏi bối cảnh ngữ cảnh văn đoạn).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>context</i> (n): ngữ cảnh, bối cảnh hoàn cảnh câu chuyện.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. mất trật tự/hỏng hóc. C. lạc lõng không đúng chỗ. D. ra khỏi hệ thống mạng lưới.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The lecture on quantum mechanics was so ______ that even the most diligent students struggled to grasp the main points.",
+                "options": ["abstract", "obscure", "profound", "abstruse"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Bài giảng về cơ học lượng tử khó hiểu đến mức ngay cả những sinh viên chăm chỉ nhất cũng phải chật vật mới nắm được các điểm chính.</div><div class='exp-section'><strong>Bước 2 - Phân tích mức độ khó của học thuật:</strong> Căn bệnh của môn học đỉnh cao 'quantum mechanics' khiến học sinh giỏi cũng bó tay 'struggled to grasp', đòi hỏi một tính từ cấp độ cao nhất mô tả sự thâm sâu, bí hiểm, cực khó nuốt của tri thức học thuật.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>abstruse</i> (adj): thâm thúy, sâu xa bí hiểm, cực kỳ khó hiểu, nan giải đối với tư duy thông thường.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. trừu tượng (chưa đủ độ nặng biểu thị sự chật vật của học sinh giỏi). B. obscure (mờ mịt, ít ai biết đến danh tiếng). C. uyên thâm sâu sắc (sắc thái tích cực khen ngợi triết lý).</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "To foster an inclusive environment, the institution provides ______ classes for students who need extra support in core subjects.",
+                "options": ["voluntary", "remedial", "vocational", "supplementary"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Để thúc đẩy một môi trường hòa nhập, học viện cung cấp các lớp học bổ túc/phụ đạo kiến thức cho những học sinh cần hỗ trợ thêm trong các môn học cốt lõi.</div><div class='exp-section'><strong>Bước 2 - Phân tích đối tượng học sinh:</strong> Các lớp học đặc thù thiết kế riêng nhằm mục đích cứu vớt, bù đắp lỗ hổng kiến thức, giúp các học sinh yếu kém, tụt lại phía sau bắt kịp trình độ chung ('need extra support in core subjects').</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>remedial</i> (adj). Cụm thuật ngữ giáo dục cố định: <b>remedial classes</b> nghĩa là các lớp học phụ đạo/bổ túc kiến thức cho học sinh yếu.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. tự nguyện tự giác. C. thuộc hướng nghiệp học nghề. D. bổ sung nâng cao mở rộng kiến thức (cho học sinh khá giỏi học thêm).</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The teacher went the extra ______ to support struggling learners.",
+                "options": ["distance", "path", "mile", "length"],
+                "correctIndex": 2,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Giáo viên đã nỗ lực vượt bậc/làm nhiều hơn những gì được kỳ vọng để hỗ trợ những học sinh đang gặp khó khăn.</div><div class='exp-section'><strong>Bước 2 - Phân tích thành ngữ hành động:</strong> Cụm từ thành ngữ thông dụng chỉ hành động cố gắng hết mình, nỗ lực hy sinh vượt qua cả bổn phận trách nhiệm cơ bản thông thường để giúp đỡ ai: <b>go the extra mile</b>.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn C. <i>mile</i> để hoàn thành cấu trúc idiom 'go the extra mile'.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> Các từ đo đạc khoảng cách vật lý khác ráp vào không tạo nên idiom cốt lõi này.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "After years of rigorous study and a successful dissertation defense, he was finally ______ his PhD degree.",
+                "options": ["conferred", "awarded", "presented", "granted"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Sau nhiều năm nghiên cứu nghiêm túc và bảo vệ thành công luận án, cuối cùng anh đã được trao bằng Tiến sĩ.</div><div class='exp-section'><strong>Bước 2 - Phân tích colocation danh hiệu bằng cấp cao:</strong> Đối với bằng cấp học thuật trang trọng tối cao do hội đồng đại học cấp (như bằng Tiến sĩ PhD, bằng Giáo sư danh dự), động từ đi kèm cấu trúc bị động chuẩn thuật ngữ học thuật là 'confer'.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>confer</i> (v). Cấu trúc: <b>be conferred a degree</b> (được trao/trao tặng bằng cấp học vị một cách trang trọng chính thức).</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. awarded (thường đi với phần thưởng, giải thưởng cuộc thi đấu huân chương). C. presented sth to sb (trao tận tay quà cáp hiện vật sân khấu). D. granted (ban cấp đặc quyền, trợ cấp dòng tiền).</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The school’s ______ has been redesigned to integrate interdisciplinary projects that bridge technology and humanities.",
+                "options": ["prospectus", "syllabus", "manual", "curriculum"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Toàn bộ khung chương trình giảng dạy của nhà trường đã được thiết kế lại để tích hợp các dự án liên ngành kết nối công nghệ và nhân văn.</div><div class='exp-section'><strong>Bước 2 - Phân tích phạm vi vĩ mô:</strong> Hành động thiết kế lại tổng thể hệ thống, tích hợp các môn học liên ngành trên toàn trường đòi hỏi một danh từ bao quát toàn diện nhất về mặt hệ thống giáo dục giáo trình.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>curriculum</i> (n): khung chương trình giảng dạy toàn bộ của một trường/hệ thống cấp học.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. tờ rơi quảng cáo giới thiệu trường. B. đề cương chi tiết môn học của một môn cụ thể (vi mô nhỏ lẻ). C. sách hướng dẫn sử dụng vận hành máy móc kỹ thuật.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The lecture barely scratched the ______ of the controversial educational theory.",
+                "options": ["surface", "border", "layer", "cover"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Bài giảng mới chỉ chạm/cưỡi ngựa xem hoa trên bề mặt của lý thuyết giáo dục đầy tranh cãi này mà thôi.</div><div class='exp-section'><strong>Bước 2 - Phân tích idiom nghiên cứu:</strong> Thành ngữ miêu tả việc mới chỉ tìm hiểu, xử lý hời hợt sơ khai ở lớp vỏ bên ngoài của một vấn đề lớn, chưa đào sâu nghiên cứu bản chất: <b>scratch the surface of sth</b>.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>surface</i> (n): bề mặt. Đóng vai trò mảnh ghép hoàn hảo của thành ngữ.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> Các danh từ đường biên giới, lớp phủ vật lý khác vi phạm cấu trúc idiom.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The curriculum reform sparked intense ______ among educators and policymakers nationwide.",
+                "options": ["obedience", "debate", "stability", "expansion"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Cuộc cải cách chương trình học đã khơi mào cho cuộc tranh luận gay gắt/cuộc thảo luận nảy lửa giữa các nhà giáo dục và các nhà hoạch định chính sách trên toàn quốc.</div><div class='exp-section'><strong>Bước 2 - Phân tích tính từ đi kèm:</strong> Tính từ chỉ mức độ căng thẳng mạnh mẽ 'intense' đi kèm với danh từ diễn tả hoạt động nghị luận chính kiến giữa hai phe đối đầu đối lập ý kiến.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>debate</i> (n): cuộc tranh biện luận chiến chính kiến. Cụm <b>spark intense debate</b> nghĩa là làm bùng nổ tranh luận gay gắt.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. sự vâng lời ngoan ngoãn. C. tính ổn định bền vững. D. sự mở rộng diện tích quy mô.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The professor encouraged students to think ______ the box when solving complex research problems.",
+                "options": ["beyond", "over", "above", "outside"],
+                "correctIndex": 3,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Giáo sư khuyến khích sinh viên tư duy đột phá/sáng tạo vượt khuôn khổ khi giải quyết các vấn đề nghiên cứu phức tạp.</div><div class='exp-section'><strong>Bước 2 - Phân tích giới từ thành ngữ:</strong> Thành ngữ kinh điển toàn cầu về tư duy vượt giới hạn hộp đóng khung, bứt phá tư duy lối mòn: <b>think outside the box</b>.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn D. <i>outside</i> kết hợp cấu trúc giới từ hoàn hảo cho idiom này.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> Các giới từ không gian khác không nằm trong cấu trúc quy ước ngữ pháp thành ngữ cố định.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Students are expected to ______ deadlines strictly in this rigorous academic program.",
+                "options": ["meet", "chase", "follow", "create"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Sinh viên được kỳ vọng phải đáp ứng/hoàn thành thời hạn nộp bài một cách nghiêm túc trong chương trình học thuật khắt khe này.</div><div class='exp-section'><strong>Bước 2 - Phân tích colocation với hạn định thời gian:</strong> Cụm từ cố định đi kèm với danh từ thời hạn chót nộp bài bài tập 'deadlines': <b>meet deadlines</b> (hoàn thành đúng hạn, kịp hạn chót).</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>meet</i> (v): đáp ứng, thỏa mãn tiêu chuẩn kịp thời hạn.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. rượt đuổi ráo riết. C. làm theo đi theo. D. sáng tạo tạo ra.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "Academic ______ serves as a formal warning for students whose GPA fails to meet the minimum institutional standards.",
+                "options": ["suspension", "probation", "exclusion", "assessment"],
+                "correctIndex": 1,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Cảnh cáo học tập/Thời gian thử thách học tập đóng vai trò như một lời cảnh báo chính thức dành cho những sinh viên có điểm trung bình tích lũy (GPA) không đạt tiêu chuẩn tối thiểu của học viện.</div><div class='exp-section'><strong>Bước 2 - Phân tích định nghĩa học đường:</strong> Cụm thuật ngữ giáo dục mô tả chế độ giám sát cảnh cáo đặc biệt đối với học sinh điểm kém, có nguy cơ bị đuổi học nếu không cải thiện tình hình ở kỳ tới ('formal warning for students whose GPA fails').</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn B. <i>probation</i> (n): thời gian thử thách, lệnh tập sự thử thách hành vi. Cụm từ <b>academic probation</b> nghĩa là tình trạng bị cảnh cáo học tập/đặt dưới chế độ thử thách do điểm kém.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> A. đình chỉ học tập (bước phạt nặng hơn cảnh báo khi đã vi phạm kỷ luật nghiêm trọng). C. sự trục xuất loại trừ hẳn. D. quy trình đánh giá kiểm tra thường niên.</div>"
+            },
+            {
+                "section": "Vocabulary Multiple Choice (Trắc Nghiệm Từ Vựng)",
+                "question": "The scholarship committee requires a comprehensive ______ that showcases both academic excellence and community involvement.",
+                "options": ["dossier", "profile", "portfolio", "transcript"],
+                "correctIndex": 0,
+                "explanation": "<div class='exp-section'><strong>Bước 1 - Dịch nghĩa câu hỏi:</strong> Ủy ban học bổng yêu cầu một bộ hồ sơ toàn diện thể hiện cả sự xuất sắc trong học tập và sự tham gia đóng góp cho cộng đồng.</div><div class='exp-section'><strong>Bước 2 - Phân tích tính chất tài liệu:</strong> Cụm từ chỉ một bộ hồ sơ đầy đủ, chi tiết chứa toàn bộ chứng từ, lý lịch, bằng khen, bài luận của một ứng viên thu thập cho mục đích xét duyệt cao cấp chính thức: <b>comprehensive dossier</b>.</div><div class='exp-section'><strong>Bước 3 - Giải thích đáp án đúng:</strong> Chọn A. <i>dossier</i> (n): tập hồ sơ chi tiết, bộ hồ sơ lưu trữ toàn diện về một nhân vật/sự việc.</div><div class='exp-section'><strong>Bước 4 - Giải thích đáp án khác:</strong> B. profile (thông tin sơ lược, hồ sơ cá nhân ngắn gọn tóm tắt trực tuyến). C. portfolio (hồ sơ năng lực nghệ thuật trưng bày tranh ảnh thiết kế sản phẩm). D. bảng điểm học tập thuần túy (chỉ chứa điểm số, không chứa thông tin hoạt động cộng đồng 'community involvement').</div>"
+            }
+        ];
+
+        let processedQuizData = [];
+
+        function shuffleArray(array) {
+            let cur = array.length;
+            while (cur !== 0) {
+                let rand = Math.floor(Math.random() * cur); cur--;
+                [array[cur], array[rand]] = [array[rand], array[cur]];
+            }
+            return array;
+        }
+
+        function initQuiz() {
+            const wrapper = document.getElementById('quiz-wrapper');
+            wrapper.innerHTML = "";
+
+            let currentSection = "";
+
+            processedQuizData = rawQuizData.map((item, idx) => {
+                let indexedOpts = item.options.map((opt, oIdx) => ({ text: opt, originalIdx: oIdx }));
+                shuffleArray(indexedOpts);
+                let newCorrectIdx = indexedOpts.findIndex(o => o.originalIdx === item.correctIndex);
+                return {
+                    id: idx + 1,
+                    section: item.section,
+                    question: item.question,
+                    options: indexedOpts.map(o => o.text),
+                    correctIndex: newCorrectIdx,
+                    explanation: item.explanation,
+                    userAnswer: null
+                };
+            });
+
+            processedQuizData.forEach((item, index) => {
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sTitle = document.createElement('div');
+                    sTitle.className = "section-title";
+                    sTitle.innerText = currentSection;
+                    wrapper.appendChild(sTitle);
+                }
+
+                const card = document.createElement('div');
+                card.className = "quiz-card";
+                card.id = `card-${index}`;
+
+                const qText = document.createElement('div');
+                qText.className = "question-text";
+                qText.innerHTML = `<strong>Question ${index + 1}:</strong> ${item.question}`;
+                card.appendChild(qText);
+
+                const optContainer = document.createElement('div');
+                optContainer.className = "options-container";
+
+                item.options.forEach((optText, optIdx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "option-btn";
+                    const prefix = String.fromCharCode(65 + optIdx);
+                    btn.innerText = `${prefix}. ${optText}`;
+                    btn.onclick = () => selectOption(index, optIdx, btn);
+                    optContainer.appendChild(btn);
+                });
+                card.appendChild(optContainer);
+
+                const expBox = document.createElement('div');
+                expBox.className = "explanation-box";
+                expBox.id = `exp-${index}`;
+                expBox.innerHTML = `
+                    <div class="explanation-title">🔍 GIẢI THÍCH CHI TIẾT TỪ MS LÊ HẰNG:</div>
+                    ${item.explanation}
+                `;
+                card.appendChild(expBox);
+
+                wrapper.appendChild(card);
+            });
+        }
+
+        function selectOption(qIdx, optIdx, clickedBtn) {
+            const qItem = processedQuizData[qIdx];
+            if (qItem.userAnswer !== null) return;
+
+            qItem.userAnswer = optIdx;
+            const card = document.getElementById(`card-${qIdx}`);
+            const buttons = card.querySelectorAll('.option-btn');
+
+            if (optIdx === qItem.correctIndex) {
+                clickedBtn.classList.add('correct');
+                playSound('correct');
+                createConfetti();
+            } else {
+                clickedBtn.classList.add('wrong');
+                buttons[qItem.correctIndex].classList.add('correct');
+                card.classList.add('shake');
+                playSound('wrong');
+            }
+
+            buttons.forEach(b => b.disabled = true);
+            document.getElementById(`exp-${qIdx}`).style.display = "block";
+        }
+
+        function submitQuiz() {
+            let correctCount = 0;
+            let totalCount = processedQuizData.length;
+            let answeredAll = true;
+
+            processedQuizData.forEach((item) => {
+                if (item.userAnswer === null) answeredAll = false;
+                else if (item.userAnswer === item.correctIndex) correctCount++;
+            });
+
+            if (!answeredAll) {
+                alert("Con ơi, hãy hoàn thành thử thách ở tất cả các câu hỏi trước khi nộp bài nhé! 😊");
+                return;
+            }
+
+            const percentage = (correctCount / totalCount) * 100;
+            let commentText = "";
+
+            if (percentage < 50) {
+                commentText = "Điểm lần này chưa cao lắm, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!.";
+            } else if (percentage >= 60 && percentage <= 80) {
+                commentText = "Con đã có tiến bộ khá ổn rồi, con cố gắng đọc kỹ giải thích đáp án và làm lại nha. Cô tin con sẽ làm tốt hơn ở lần sau!.";
+            } else if (percentage >= 90) {
+                commentText = "Làm tốt lắm, con cố gắng ring điểm 10 ở lần sau nha!.";
+                createConfetti();
+            }
+
+            document.getElementById('modalScoreText').innerText = `${correctCount} / ${totalCount}`;
+            document.getElementById('modalCommentText').innerText = commentText;
+            document.getElementById('scoreModal').style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById('scoreModal').style.display = "none";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            initQuiz();
+        }
+
+        window.onload = initQuiz;
+    </script>
+</body>
+</html>
